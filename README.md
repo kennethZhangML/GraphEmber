@@ -1,5 +1,9 @@
 # GraphEmber
 
+<p align="center">
+  <img src="GraphEmber.png" />
+</p>
+
 GraphEmber is a Python project that demonstrates the creation and analysis of knowledge graphs and implements a simplified Graph Convolutional Network (GCN) for node classification on these graphs. This README provides an overview of the project, its components, and how to use it.
 
 ## Table of Contents

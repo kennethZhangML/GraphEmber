@@ -19,17 +19,74 @@ class KnowledgeGraph:
         nx.draw_networkx_edge_labels(self.graph, pos, edge_labels = labels, font_size = 10)
         plt.show()
 
-# Example usage:
-if __name__ == "__main__":
-    entities = ["John", "CompanyXYZ", "New York City", "Sarah", "Los Angeles"]
-    relationships = [("John", "works_at", "CompanyXYZ"), ("CompanyXYZ", "is_located_in", "New York City")]
+class ScratchKnowledgeGraph:
+    def __init__(self):
+        self.graph = {}
 
-    knowledge_graph = KnowledgeGraph()
+    def add_entity(self, entity_name):
+        if entity_name not in self.graph:
+            self.graph[entity_name] = {'type': 'entity', 'neighbors': {}}
+
+    def add_relationship(self, subject, predicate, object):
+        self.add_entity(subject)
+        self.add_entity(object)
+        self.graph[subject]['neighbors'][object] = predicate
+        self.graph[object]['neighbors'][subject] = predicate
+
+    def visualize_graph(self):
+        for node, data in self.graph.items():
+            print(f"Entity: {node} (Type: {data['type']})")
+            for neighbor, predicate in data['neighbors'].items():
+                print(f"  -> {predicate} -> {neighbor}")
+
+
+# Expanded example usage with more entities and relationships:
+if __name__ == "__main__":
+    entities = [
+        "John", "CompanyXYZ", "New York City", "Sarah", "Los Angeles",
+        "Manager", "Employee", "Los Angeles Department", "Chicago",
+        "Engineer", "Finance Department", "San Francisco", "IT Department",
+        "Washington D.C.", "Customer", "Client", "Supplier", "Vendor"
+    ]
+
+    relationships = [
+        ("John", "works_at", "CompanyXYZ"),
+        ("CompanyXYZ", "is_located_in", "New York City"),
+        ("Sarah", "works_at", "CompanyXYZ"),
+        ("CompanyXYZ", "employs", "Sarah"),
+        ("CompanyXYZ", "has_position", "Manager"),
+        ("John", "has_position", "Employee"),
+        ("Los Angeles Department", "is_located_in", "Los Angeles"),
+        ("Employee", "works_in", "Los Angeles Department"),
+        ("Los Angeles", "is_located_in", "California"),
+        ("Engineer", "works_at", "CompanyXYZ"),
+        ("Finance Department", "is_part_of", "CompanyXYZ"),
+        ("San Francisco", "is_located_in", "California"),
+        ("IT Department", "is_part_of", "CompanyXYZ"),
+        ("Washington D.C.", "is_located_in", "Washington D.C."),
+        ("Customer", "has_relationship_with", "CompanyXYZ"),
+        ("Client", "has_relationship_with", "CompanyXYZ"),
+        ("Supplier", "has_relationship_with", "CompanyXYZ"),
+        ("Vendor", "has_relationship_with", "CompanyXYZ"),
+        ("CompanyXYZ", "supplies_to", "Supplier"),
+        ("CompanyXYZ", "buys_from", "Vendor"),
+    ]
+
+    # knowledge_graph = KnowledgeGraph()
+
+    # for entity in entities:
+    #     knowledge_graph.add_entity(entity)
+
+    # for relationship in relationships:
+    #     knowledge_graph.add_relationship(*relationship)
+
+    # knowledge_graph.visualize_graph()
+
+    kg = ScratchKG()
 
     for entity in entities:
-        knowledge_graph.add_entity(entity)
+        kg.add_entity(entity)
 
-    for relationship in relationships:
-        knowledge_graph.add_relationship(*relationship)
-
-    knowledge_graph.visualize_graph()
+    for relation in relationships:
+        kg.add_relationship(subject = relation[0], predicate = relation[1], object = relation[2])
+    kg.visualize_graph()

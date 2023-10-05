@@ -43,6 +43,7 @@ def spacy_template(text):
 
     print("Entities: ", entities)
     print("Relationships: ", relationships)
+    return entities, relationships
 
 def nltk_template(text):
     sentences = nltk.sent_tokenize(text)
@@ -64,6 +65,7 @@ def nltk_template(text):
 
     print("Entities: ", entities)
     print("Relationships: ", relationships)
+    return entities, relationships
 
 if __name__ == "__main__":
     text = "John works at CompanyXYZ. CompanyXYZ is located in New York City."

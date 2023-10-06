@@ -33,12 +33,15 @@ class ScratchKnowledgeGraph:
         self.graph[subject]['neighbors'][object] = predicate
         self.graph[object]['neighbors'][subject] = predicate
 
+    def num_neighbours(self, entity):
+        return len(self.graph[entity])
+
     def visualize_graph(self):
         for node, data in self.graph.items():
             print(f"Entity: {node} (Type: {data['type']})")
+            print("Number of neighbours: ", len(self.graph[node]))
             for neighbor, predicate in data['neighbors'].items():
                 print(f"  -> {predicate} -> {neighbor}")
-
 
 # Expanded example usage with more entities and relationships:
 if __name__ == "__main__":
@@ -72,17 +75,17 @@ if __name__ == "__main__":
         ("CompanyXYZ", "buys_from", "Vendor"),
     ]
 
-    # knowledge_graph = KnowledgeGraph()
+    knowledge_graph = KnowledgeGraph()
 
-    # for entity in entities:
-    #     knowledge_graph.add_entity(entity)
+    for entity in entities:
+        knowledge_graph.add_entity(entity)
 
-    # for relationship in relationships:
-    #     knowledge_graph.add_relationship(*relationship)
+    for relationship in relationships:
+        knowledge_graph.add_relationship(*relationship)
 
-    # knowledge_graph.visualize_graph()
+    knowledge_graph.visualize_graph()
 
-    kg = ScratchKG()
+    kg = ScratchKnowledgeGraph()
 
     for entity in entities:
         kg.add_entity(entity)
